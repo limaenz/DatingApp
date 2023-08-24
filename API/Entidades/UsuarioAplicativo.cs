@@ -4,5 +4,7 @@ namespace API.Entidades
     {
         public int Id { get; set; }
         public string NomeUsuario { get; set; }
+        public byte[] SenhaHash { get; set; }
+        public byte[] SenhaSalt { get; set; }
     }
 }
