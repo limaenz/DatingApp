@@ -7,7 +7,6 @@ namespace API.Extensions
 {
     public static class AplicacaoServiceExtensions
     {
-
         public static IServiceCollection AdicionaServicesAplicacao(this IServiceCollection services,
         IConfiguration config)
         {

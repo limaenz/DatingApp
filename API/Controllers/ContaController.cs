@@ -17,7 +17,6 @@ namespace API.Controllers
         {
             _tokenService = tokenService;
             _context = context;
-
         }
 
         [HttpPost("registrar")]
@@ -40,8 +39,8 @@ namespace API.Controllers
 
             return new UsuarioDto
             {
-                NomeUsuario = usuario.NomeUsuario
-                , Token = _tokenService.CriaToken(usuario)
+                NomeUsuario = usuario.NomeUsuario,
+                Token = _tokenService.CriaToken(usuario)
             };
         }
 
@@ -51,7 +50,7 @@ namespace API.Controllers
             var usuario = await _context.Usuarios.SingleOrDefaultAsync(x => x.NomeUsuario == loginDto.NomeUsuario);
 
             if (usuario is null)
-                return Unauthorized("Senha inválida.");
+                return Unauthorized("Nome de usuário não encontrado.");
 
             using var hmac = new HMACSHA512(usuario.SenhaSalt);
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Senha));
@@ -61,11 +60,11 @@ namespace API.Controllers
                 if (computedHash[indice] != usuario.SenhaHash[indice])
                     return Unauthorized("Senha inválida.");
             }
-            
+
             return new UsuarioDto
             {
-                NomeUsuario = usuario.NomeUsuario
-                , Token = _tokenService.CriaToken(usuario)
+                NomeUsuario = usuario.NomeUsuario,
+                Token = _tokenService.CriaToken(usuario)
             };
         }
 
